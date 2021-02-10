@@ -3,7 +3,7 @@ from typing import List
 import math
 
 
-def get_satellite_coordinates():
+def get_satellites_online():
     satellite_coordinates = {
         'Kenobi': [-500.0, -200.0],
         'Skywalker': [100.0, -100.0],
@@ -13,7 +13,7 @@ def get_satellite_coordinates():
 
 
 def get_location(distances: List[float]):
-    satellite_coordinates = get_satellite_coordinates()
+    satellite_coordinates = get_satellites_online()
     s1_x, s1_y = satellite_coordinates['Kenobi']
     s2_x, s2_y = satellite_coordinates['Skywalker']
     s3_x, s3_y = satellite_coordinates['Sato']
