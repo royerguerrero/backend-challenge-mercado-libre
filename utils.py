@@ -2,8 +2,11 @@
 # Typing
 from typing import List
 
+# Models
+from models import Satellite
+
 # Utils
-import math
+import math, json
 
 
 def get_satellites_online():
@@ -15,6 +18,10 @@ def get_satellites_online():
     return satellite_coordinates
 
 
+def ecludean_distance(x1, y1, x2, y2):
+    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+
+
 def get_location(distances: List[float]):
     satellite_coordinates = get_satellites_online()
     s1_x, s1_y = satellite_coordinates['Kenobi']
@@ -24,6 +31,9 @@ def get_location(distances: List[float]):
     s1_d = distances[0]
     s2_d = distances[1]
     s3_d = distances[2]
+
+    # ex = pass
+    # ey = pass
 
     i = 1
     d = 1
@@ -42,3 +52,20 @@ def get_message(messages: List[List[str]]):
                 decrypted_message[i] = message[i]
 
     return ' '.join(dict(sorted(decrypted_message.items())).values())
+
+
+def append_satellite(satellite: Satellite):
+    if satellite.name.capitalize() not in get_satellites_online().keys():
+            raise Exception(f'The satellite was not found.')
+    
+    with open('storage.json', 'r+') as f:
+        data = json.load(f)
+        
+        data.update({
+            satellite.name: {
+                "distance": satellite.distance,
+                "message": satellite.message
+            }
+        })
+        f.seek(0)
+        json.dump(data, f, indent=4)

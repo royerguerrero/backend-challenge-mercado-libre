@@ -6,13 +6,15 @@ from typing import List
 # Models
 from models import Satellites, HelpResponse, Satellite
 
-# Utils
-from utils import get_location, get_message
-
 # Validators
 from validators import satellites_must_have_a_legth_of_three, find_satellite_by_name
 
-app = FastAPI()
+# Utils
+from utils import get_location, get_message, append_satellite
+import json
+
+
+app = FastAPI(title='Quasar Fire')
 
 
 @app.post('/topsecret/', response_model=HelpResponse)
@@ -43,5 +45,6 @@ def top_secret(satellites: Satellites):
 def topsecret_split(satellite_name: str, satellite: Satellite):
     find_satellite_by_name(satellite_name)
     satellite.name = satellite_name
+    append_satellite(satellite)
 
-    return {'Works...': 1}
+    return {'detail': 'Not enough information.'}
