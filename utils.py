@@ -25,9 +25,9 @@ def get_location(distances: List[float]):
     s2_d = distances[1]
     s3_d = distances[2]
 
-    i = math.sqrt((s3_x - s1_x)**2 + (s3_y - s1_y)**2)
-    d = math.sqrt((s2_x - s1_x)**2 + (s2_y - s1_y)**2)
-    j = math.sqrt((s3_x - s2_x)**2 + (s3_y - s2_y)**2)
+    i = 1
+    d = 1
+    j = 1
 
     x = (s1_d**2 - s2_d**2 + d**2) / 2 * d
     y = ((s1_d**2 + s3_d**2 + i**2 + j**2) / 2) - (i / j) * x
