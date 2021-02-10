@@ -1,5 +1,8 @@
 """Utils"""
+# Typing
 from typing import List
+
+# Utils
 import math
 
 
@@ -31,14 +34,11 @@ def get_location(distances: List[float]):
     return x, y
 
 
-def get_message(messages: List[str]):
-    message = []
-    for i in messages:
-        if i not in message and i != "":
-            message.append(i)
+def get_message(messages: List[List[str]]):
+    decrypted_message = {}
+    for message in messages:
+        for i in range(len(message)):
+            if message[i] != '':
+                decrypted_message[i] = message[i]
 
-    return ' '.join(message)
-
-
-d = [100.0, 115.5, 142.7]
-print(get_location(d))
+    return ' '.join(dict(sorted(decrypted_message.items())).values())

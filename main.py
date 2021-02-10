@@ -18,16 +18,12 @@ def top_secret(satellites: Satellites):
     distances = []
 
     for satellite in satellites:
-        dirt_message += satellite.message
+        dirt_message.append(satellite.message)
         distances.append(satellite.distance)
 
-    print(distances)
     # x, y = get_message(distances)
     data = {
-        'position': {
-            'x': 0,
-            'y': 1,
-        },
+        'position': {'x': 0, 'y': 1,},
         'message': get_message(dirt_message)
     }
 
