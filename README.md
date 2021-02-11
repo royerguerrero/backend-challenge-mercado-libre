@@ -33,7 +33,7 @@ To install this application for development you must meet the above requirements
       ]
     }
     ```
-- POST -> `/topsecret_split/{satellite_name}`
+- POST -> `/topsecret_split/{satellite_name}/`
   - Payload Schema
     ```
     {
@@ -42,3 +42,4 @@ To install this application for development you must meet the above requirements
       "message": ["", "world", "everybody"]
     }
     ```
+- GET -> `/topsecret_split/`    

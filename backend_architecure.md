@@ -19,20 +19,27 @@ satélite debido al campo de asteroides frente a la nave.
 - Sato: [500, 100]
 
 # Use Cases
-- Crear una funcion para rearmar el mensaje luego del ruido emitido por los asteroides
-- Crear una funcion que permita triangular la posicion usando el algoritmo de
-trilateracion
-- Crear un servicio que permita recibir la distancia de cada satelite a su emisor
-y el mensaje recibido por dicho satelite para que este retorne el mensaje limpiando el ruido y la posicion del emisor de la señal
-- Crear un segundo servicio que permita recivir la informacion de la distacia y mensaje cada satelite por separado y cuando este tenga los datos suficientes para poder retornar el mensaje y la posicion lo haga
-- Despliege de la API en cualquier cluod (AWS, Azure, GCP, ...)
+- Crear una función para rearmar el mensaje luego del ruido emitido por los asteroides
+- Crear una función que permite triangular la posición usando el algoritmo de
+trilateración
+- Crear un servicio que permita recibir la distancia de cada satélite a su emisor
+y el mensaje recibido por dicho satélite para que este retorne el mensaje limpiando el ruido y la posición del emisor de la señal
+- Crear un segundo servicio que permita recibir la información de la distancia y mensaje cada satélite por separado y cuando este tenga los datos suficientes para poder retornar el mensaje y la posición lo haga
+- Despliegue de la API en cualquier cloud (AWS, Azure, GCP, ...)
 
 ### Out to scope
-- Crear un sistema de autentificacion para protejer los endpoints topsecret
-- Crear validadores para errores (En lugar de ello se respondera 404)
+- Crear un sistema de autenticación para proteger los endpoints topsecret
+- Crear validadores para errores (En lugar de ello se responderá 404)
 
 # Proposal
 ## Architecture
-El sistema propuesto sera la construccion de una API usando [FastAPI](https://fastapi.tiangolo.com/) un framework de python de alto performance, dicha api sera desplegada usando Docker en una instancia EC2 sobre AWS Cloud.
+El sistema propuesto contempla la construcción de una API usando [FastAPI](https://fastapi.tiangolo.com/) un framework de python de alto performance, dicha API será desplegada usando Docker en una instancia EC2 sobre AWS Cloud.
+
+Las funciones descritas en los primeros casos de uso se realizarán de la siguiente manera
+
+1. Para eliminar el ruido del mensaje se usará una tabla de hash para insertar cada parte del mensaje que no sea vacía, luego dicha tabla se ordenará y por último se unirá en un string.
+2. La función de triangulación se usará [Trilateración 2D](https://es.wikipedia.org/wiki/Trilateraci%C3%B3n) para lograr hallar la distancia basandose en la solucion matematica planteada en el articulo titulado ([Cell Phone Trilateration Algorithm](https://www.101computing.net/cell-phone-trilateration-algorithm/)) que se encuentra en [101Computing.net](https://www.101computing.net/)
 
 ## Architecture Diagram
+![Architecture Diagram Image](architecture_diagram.jpg)
+
