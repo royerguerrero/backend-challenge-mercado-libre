@@ -6,7 +6,8 @@ from typing import List
 from models import Satellite
 
 # Utils
-import math, json
+import math
+import json
 
 
 def get_satellites_online():
@@ -19,7 +20,7 @@ def get_satellites_online():
 
 
 def ecludean_distance(x1, y1, x2, y2):
-    return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
 def get_location(distances: List[float]):
@@ -39,8 +40,8 @@ def get_location(distances: List[float]):
     d = 1
     j = 1
 
-    x = (s1_d**2 - s2_d**2 + d**2) / 2 * d
-    y = ((s1_d**2 + s3_d**2 + i**2 + j**2) / 2) - (i / j) * x
+    x = (s1_d ** 2 - s2_d ** 2 + d ** 2) / 2 * d
+    y = ((s1_d ** 2 + s3_d ** 2 + i ** 2 + j ** 2) / 2) - (i / j) * x
     return x, y
 
 
@@ -56,11 +57,11 @@ def get_message(messages: List[List[str]]):
 
 def append_satellite(satellite: Satellite):
     if satellite.name.capitalize() not in get_satellites_online().keys():
-            raise Exception(f'The satellite was not found.')
-    
+        raise Exception(f'The satellite was not found.')
+
     with open('storage.json', 'r+') as f:
         data = json.load(f)
-        
+
         data.update({
             satellite.name: {
                 "distance": satellite.distance,
