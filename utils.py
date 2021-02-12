@@ -6,6 +6,7 @@ SATELLITES_MEMO = {}
 
 
 def get_satellites_online():
+    """Returns satellites coordinates."""
     satellite_coordinates = {
         'Kenobi': [-500.0, -200.0],
         'Skywalker': [100.0, -100.0],
@@ -15,6 +16,7 @@ def get_satellites_online():
 
 
 def get_location(distances: List[float]):
+    """Obtains the position of the emisor."""
     satellite_coordinates = get_satellites_online()
     x1, y1 = satellite_coordinates['Kenobi']
     x2, y2 = satellite_coordinates['Skywalker']
@@ -37,6 +39,7 @@ def get_location(distances: List[float]):
 
 
 def get_message(messages: List[List[str]]):
+    """Deletes message noise"""
     decrypted_message = {}
     for message in messages:
         for i in range(len(message)):

@@ -2,6 +2,7 @@
 
 # FastAPI
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 # Models
 from models import Satellites, HelpResponse, Satellite
@@ -14,9 +15,17 @@ from utils import get_location, get_message, SATELLITES_MEMO
 
 app = FastAPI(title='Quasar Fire')
 
+origins = ["*"]
+
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"],
+                   allow_headers=["*"])
+
 
 @app.post('/topsecret/', response_model=HelpResponse)
 def top_secret(satellites: Satellites):
+    """Top Secret Service: Calculates the position of the sender of
+    the message based on the distance between the satellites and the
+    sender and removes noise from the message."""
     satellites = satellites.satellites
     dirt_message = []
     distances = []
@@ -42,6 +51,8 @@ def top_secret(satellites: Satellites):
 
 @app.post('/topsecret_split/{satellite_name}')
 def topsecret_split(satellite_name: str, satellite: Satellite, request: Request):
+    """Top Secret Split Service: Stores the satellite data in
+    the hash table [SATELLITES_MEMO] using the client's IP address"""
     find_satellite_by_name(satellite_name)
     satellite.name = satellite_name
     ip_client = request.client.host
@@ -59,6 +70,9 @@ def topsecret_split(satellite_name: str, satellite: Satellite, request: Request)
 
 @app.get('/topsecret_split/')
 def topsecret_split_read(request: Request):
+    """Top Secret Split Read service: Returns the same as the
+    /topscret/ service but the satellite data is extracted from the
+    table up to [SATELLITES_MEMO]."""
     ip_client = request.client.host
     satellites_client = SATELLITES_MEMO.get(ip_client)
 
