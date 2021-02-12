@@ -18,6 +18,9 @@ To install this application for development you must meet the above requirements
 4. Run development server using `uvicorn main:app --reload`
 5. Go to [127.0.0.1:8000](http://127.0.0.1:8000/)
 
+## Run tests 🏃
+For run the test you can use `pytest -v tests.py`
+
 ## Services 🌐
 - POST -> `/topsecret/`
   - Payload Schema
